@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -21,5 +21,6 @@ function App() {
     </div>
   );
 }
+// 看起來在寫 HTML 但其實是在用 jsx，利用 JS 語法物件表現畫面。
 
 export default App;
