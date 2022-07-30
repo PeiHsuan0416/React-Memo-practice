@@ -184,20 +184,7 @@ json server 模擬後端的小工具
 
 
 
-// 透過 data 的變動，做 POST的動作打 API
-async function fetchSetData(data) {
-  const res = await fetch(API_GET_DATA, {
-    method: "PUT",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({data})
-  })
-}
 
 
 
-  // 當 data 有變動時，用 useEffect 去  POST 資料
-  useEffect(function() {
-    fetchSetData(data)
-  }, [data])
+

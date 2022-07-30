@@ -14,6 +14,16 @@ async function fetchData(setData) {
   const { data } = await res.json() // 用 json 將其解構 id 拿到裡面的 data
   setData(data)
 }
+// 透過 data 的變動，做 POST的動作打 API
+async function fetchSetData(data) {
+  const res = await fetch(API_GET_DATA, {
+    method: "PUT",
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({data})
+  })
+}
 
 // 可以用箭頭函示 Home = () =>{}
 const Home = function () {
@@ -24,6 +34,10 @@ const Home = function () {
   useEffect(function() {
     fetchData(setData)
   },[])
+  // 當 data 有變動時，用 useEffect 去  POST 資料
+  useEffect(function() {
+    fetchSetData(data)
+  }, [data])
   
   return (
     <div className="app">
