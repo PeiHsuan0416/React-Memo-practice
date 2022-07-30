@@ -1,10 +1,10 @@
 import Item from "./Item";
 
-const List = function ({ listData, deleteData }) {
+const List = ({ listData, deleteData }) => {
   // console.log('listData',listData);
   return (
     <div className="list">
-      {listData.map((item) => {
+      { listData.map((item) => {
         //note = item.note改用解構寫法，解構可以有預設值
         const { note, date, time, id } = item;
         return (
@@ -16,9 +16,9 @@ const List = function ({ listData, deleteData }) {
             time={time}
             deleteData={deleteData}
           />
-        );
+        )
         // 左邊的note 是 props 取直時 Item.js 內要拿的東西，右邊的 note 則是上方 const內的 note
-      })}
+      }) }
     </div>
   );
 };

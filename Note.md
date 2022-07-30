@@ -42,6 +42,7 @@ State Hook & Effect Hook
 ```$ npm start``` 開啟 localhost
 ```npm i prettier``` 安裝後，再到packpage.json 內 "scripts"下新增 "prettier": "prettier -w src/"
 ```npm install uuid``` 快速生成id v4
+```npm i json-server``` 模擬後端
 
 ----------------------
 
@@ -131,9 +132,72 @@ const Home = function() {
   </div>
   )
 }
+
+  useEffect(function(){
+    //綁定的事情
+    return function() {
+      //取消綁定
+    }
+  },[data])
+  // 當狀態變動之後要做什麼事情：類似提示flex。在 useEffect 裡面第一個參數是定義一個 function，裡面放每次執行的時候有一個效果要做的事情，因此要綁定一個依賴關係，將綁定關係放在第二個參數，當 data 有變動時，會執行 function
+  //外面的 function 是每次執行的時候會做的事情，裡面的 function 是每次渲染結束要開始下一次渲染前要做的事情
+
+
+    // useEffect 拉 API
+  useEffect(function() {
+    fetch("http://localhost:3000/posts/1")
+    .then(res => res.json()) // 將拿回的res retuen 成一個 json
+    .then(data => { console.log(data); // 再拿出 data
+    })
+  },[])
+  // 另外將常數放至 global 裡的 constants.js 檔內後，引入 import 並可修改成：
+  import { API_GET_DATA } from "../../global/constants";
+
+  useEffect(function() {
+    fetch(API_GET_DATA)
+    .then(res => res.json()) // 將拿回的res retuen 成一個 json
+    .then(data => { console.log(data); // 再拿出 data
+    })
+  },[])
+
+  // 可以在寫 async function 讓程式碼變得更簡潔
+  async function fetchData() {
+    const res = await fetch(API_GET_DATA) // 透過await方式 fetch API 拿到 res
+    const data = await res.json() // 用 json 將其解構
+    console.log(data);
+  }
+  useEffect(function() {
+    fetchData()
+  },[])
+
 ```
 
 
 如果 map 出來的元素會插入、刪除、調換順序 要加 key
 不希望元件被重新渲染就要加KEY
 uuid npm
+json server 模擬後端的小工具
+
+
+
+
+
+
+
+// 透過 data 的變動，做 POST的動作打 API
+async function fetchSetData(data) {
+  const res = await fetch(API_GET_DATA, {
+    method: "PUT",
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({data})
+  })
+}
+
+
+
+  // 當 data 有變動時，用 useEffect 去  POST 資料
+  useEffect(function() {
+    fetchSetData(data)
+  }, [data])
