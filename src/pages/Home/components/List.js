@@ -1,6 +1,6 @@
 import Item from "./Item";
 
-const List = ({ listData, deleteData }) => {
+const List = ({ listData, deleteData, submittingStatus }) => {
   // console.log('listData',listData);
   return (
     <div className="list">
@@ -15,6 +15,7 @@ const List = ({ listData, deleteData }) => {
             date={date}
             time={time}
             deleteData={deleteData}
+            submittingStatus={submittingStatus}
           />
         )
         // 左邊的note 是 props 取直時 Item.js 內要拿的東西，右邊的 note 則是上方 const內的 note

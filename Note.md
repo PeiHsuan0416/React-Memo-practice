@@ -42,7 +42,7 @@ State Hook & Effect Hook
 ```$ npm start``` 開啟 localhost
 ```npm i prettier``` 安裝後，再到packpage.json 內 "scripts"下新增 "prettier": "prettier -w src/"
 ```npm install uuid``` 快速生成id v4
-```npm i json-server``` 模擬後端
+```npm i json-server``` 模擬後端 "server": "json-server --watch db.json"
 
 ----------------------
 

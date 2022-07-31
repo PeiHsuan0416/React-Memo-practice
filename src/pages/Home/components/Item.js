@@ -1,8 +1,9 @@
 //此處 function內的名稱與List內相同方便解構
-const Item = function({id, noteData, date, time, deleteData}) {
+const Item = function({id, noteData, date, time, deleteData, submittingStatus }) {
 
 
   function deleteItem() {
+    submittingStatus.current = true
     deleteData(function(prev){
       return prev.filter(item => item.id !== id)
     })

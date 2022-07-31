@@ -1,5 +1,5 @@
 // 將 state 放入
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { API_GET_DATA } from "../../global/constants";
 
 // 引入分出的元件
@@ -29,6 +29,7 @@ async function fetchSetData(data) {
 const Home = function () {
   // [初始值, 對應的function]
   const [data, setData] = useState([]);
+  const submittingStatus = useRef(false);
   
   // useEffect 拉 API
   useEffect(function() {
@@ -36,13 +37,17 @@ const Home = function () {
   },[])
   // 當 data 有變動時，用 useEffect 去  POST 資料
   useEffect(function() {
+    if (!submittingStatus.current) {
+      return
+    }
     fetchSetData(data)
+    .then(data => submittingStatus.current = false)
   }, [data])
   
   return (
     <div className="app">
-      <Edit addData={setData} />
-      <List listData={data} deleteData={setData} />
+      <Edit addData={setData} submittingStatus={submittingStatus} />
+      <List listData={data} deleteData={setData} submittingStatus={submittingStatus}/>
       {/* listData是一個 props 方式傳遞資訊，再到 List.js做同名的設定 */}
     </div>
   );

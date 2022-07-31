@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { v4 } from "uuid";
 
-const Edit = function ({ addData }) {
+const Edit = function ({ addData, submittingStatus }) {
   const [note, setNote] = useState("請輸入備忘錄");
   function noteChange(e) {
     setNote(e.target.value);
@@ -21,6 +21,8 @@ const Edit = function ({ addData }) {
   // console.log(note, date, time);
 
   function addItem() {
+    // 新增之前先將 useRef 狀態設為 ture
+    submittingStatus.current = true
     //把想要跟新的值放進去
     addData(function (prevData) {
       //解構的方式
